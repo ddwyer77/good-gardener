@@ -1,9 +1,9 @@
 # Good Gardener
 
-Static multi-page nonprofit website adapted from the observed Tom’s Place Resort layout. No build or third-party runtime dependencies. Serve `dist/` with an HTTP server.
+Static multi-page nonprofit website adapted from the observed Tom’s Place Resort layout. No build step. Three.js 0.180.0 is vendored locally for the decorative 3D viewer. Serve `dist/` with an HTTP server.
 
 ## Design and content
-Homepage preserves the reference's 776px left-aligned desktop composition, photo placement, navy Arial masthead, blue Georgia text panel, bordered announcement, green/red supporting copy, and brown two-row footer navigation. Mobile layouts reflow for readability. Shared styling is in `dist/style.css`.
+Homepage preserves the reference's 776px left-aligned desktop composition, navy Arial masthead, blue Georgia text panel, bordered announcement, green/red supporting copy, and brown two-row footer navigation. The requested retro expansion adds a hillside horizon banner, original 88×31 GIFs, and a nature sidebar with six floating 3D instances. Mobile layouts reflow for readability. Shared styling is in `dist/style.css`.
 
 Eleven HTML pages include the homepage, story, mission, community, monthly award, honoree index, three retained sample article URLs, the first actual honoree article, and clothing store. The homepage and honoree index feature the user as the first recipient for September 2026, using their supplied photo and self-description. The three older sample articles remain accessible at their existing URLs but are no longer linked from the honoree listings. Products remain labeled concepts. Generated workshop and collection photos do not represent actual inventory.
 
@@ -16,5 +16,12 @@ Sites identity and static directory live in `.openai/hosting.json`. Site is priv
 ## Verification
 Check local HTML links/assets and JS syntax; inspect desktop/mobile layout and exercise article navigation and store add/remove/size behavior.
 
-## Image placement
-Each content image is rendered once across the site: workshop banner on Home, supplied honoree portrait on Home, craft photo on Our Story, community photo on Community, collection photo on Store. Honoree articles use text rather than repeating the homepage portrait.
+## Image placement and motion
+The supplied horizon banner, bird, Yosemite image, penguins, and honoree portrait each appear once on the homepage. Craft, community, and clothing photos remain on their respective pages. Repeated plant and peace-sign models and archive buttons are intentional user-requested exceptions to the earlier no-repeat rule.
+
+`retro.js` implements the pause control, drawing local GIF frames into static canvases while paused. `floating-garden.js` uses one transparent WebGL canvas for six low-poly model instances at a capped 24 fps. DOM markers reserve room so decorations do not obscure links. There are no animation API calls at runtime. Offscreen tabs stop rendering. The OS reduced-motion preference is respected; a local motion preference may override it. A static image fallback appears if WebGL or model loading fails. Plant and peace images/model files stay local to the deployed site.
+
+`retro.css` adds the nature rail and badge layouts. See `ASSET-SOURCES.md` for source URLs, model request IDs, and license notes. Homepage and honoree content, clothing preview logic, and private access are preserved.
+
+## Domain
+On September 21, 2026 (Pacific), Porkbun search showed `goodgardener.world` available at $2.57 first year and $33.47 renewal. Cloudflare live search also confirmed availability at $32.20 registration and $32.20 annual renewal. The user prefers Cloudflare or their existing registrar. The user requested pricing and registrar choice; no purchase has been made. Domain is not bought or connected. A custom-domain setup will require ownership and DNS records from Sites. No hosting-price guarantee has been made.
