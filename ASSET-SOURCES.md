@@ -1,6 +1,6 @@
 # Retro art sources
 
-The user supplied the horizon banner, bird, Yosemite image, penguins, potted plant, and chrome/black peace symbols. The first four appear once each on the homepage. Repeating plants and peace symbols are explicitly requested decorative exceptions to the earlier unique-photo rule.
+The user supplied the horizon banner, bird, Yosemite image, penguins, potted plant, and chrome/black peace symbols. The horizon appears once on the homepage. The bird, Yosemite, and penguin references are retained in the local asset folder but are currently removed from the visible site. Repeating plants and peace symbols are explicitly requested decorative exceptions to the earlier unique-photo rule.
 
 ## 3D models
 Generated from the user-approved plant and chrome peace references using fal Tripo P2 image-to-3D, one run per model. Meshy CLI was available but not authenticated; the existing fal connector handled generation. Upload to fal public CDN was explicitly approved in chat. Plant target: 2,500 faces, textured. Peace target: 1,500 faces, PBR textured. Actual provider charges were not returned; price API reported USD 0.01 per credit without a per-job credit count.
