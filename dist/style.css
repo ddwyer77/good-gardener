@@ -5,3 +5,38 @@
 .honoree-photo{object-position:50% 48%}.inner-copy .honoree-portrait{height:auto;max-height:none;object-fit:contain}.award-date{color:#315f3c;font-weight:bold}
 
 .feature .first-award{font:bold 16px/22px Arial,sans-serif;color:#315f3c;margin:25px auto 30px}.feature-photo.honoree-photo{width:min(292px,100%);height:auto;aspect-ratio:auto;object-position:50% 48%;margin:0 auto}
+
+.visually-hidden{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+.masthead{width:440px}
+.masthead>img{display:block;width:412px;height:189px;object-fit:cover}
+.brand{margin:12px 0 0;color:#000066}
+.brand h1{display:flex;align-items:center;gap:7px;font-size:32px;line-height:38px;margin:0;white-space:nowrap}
+.masthead .brand-mark{display:block;flex:0 0 auto;width:118px;height:42px;object-fit:fill}
+.featured-products{width:650px;max-width:calc(100% - 32px);margin:28px 0 10px 65px}
+.featured-collection{position:relative;width:100%}
+.featured-collection>img{display:block;width:100%;height:auto}
+.featured-hit{position:absolute;z-index:2;display:block;border:3px solid transparent}
+.featured-hit:focus-visible{border-color:#b91806;outline:3px solid #fff4d4;outline-offset:2px}
+.featured-hit-logo{left:6%;top:1%;width:43%;height:44%}
+.featured-hit-universe{left:51%;top:1%;width:43%;height:44%}
+.featured-hit-peace{left:6%;top:50%;width:43%;height:44%}
+.featured-hit-leafcutter{left:51%;top:50%;width:43%;height:44%}
+.home-grid{margin-top:14px}
+.intro-visual{width:363px;height:auto;min-height:0;background:transparent;font:inherit}
+.intro-visual img{display:block;width:100%;height:auto}
+
+@media(max-width:775px){
+  .masthead{width:min(440px,100%)}
+  .masthead>img{width:100%;height:auto;aspect-ratio:412/189}
+  .brand{margin:10px 0 0}
+  .brand h1{gap:5px;font-size:clamp(22px,6.6vw,28px);line-height:1.15;white-space:nowrap}
+  .masthead .brand-mark{width:clamp(82px,24vw,108px);height:clamp(28px,8vw,38px)}
+  .featured-products{width:100%;max-width:none;margin:28px 0 10px}
+  .home-grid{margin-top:18px}
+  .intro-visual{width:100%;padding:0}
+}
+
+@media(max-width:520px){
+  .brand p{font-size:13px}
+  .featured-products{margin-top:24px}
+}

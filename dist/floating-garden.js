@@ -27,6 +27,7 @@ function placeSlots() {
 
   const random = seededRandom(hashString(location.pathname || 'good-gardener'));
   const compact = window.innerWidth < 650;
+  const homePage = location.pathname === '/' || location.pathname.endsWith('/index.html');
   const height = Math.max(scatterSurface.offsetHeight, 620);
   const top = compact ? 105 : 90;
   const bottom = Math.max(top + 1, height - (compact ? 90 : 75));
@@ -37,11 +38,17 @@ function placeSlots() {
 
   slots.forEach((slot, index) => {
     const kind = slot.dataset.model;
-    const x = xAnchors[index % xAnchors.length] + (random() - 0.5) * (compact ? 8 : 12);
-    const y = top + band * (index + 0.2 + random() * 0.6);
-    const size = (compact ? 66 : 82) + random() * (compact ? 28 : 46);
+    let x = xAnchors[index % xAnchors.length] + (random() - 0.5) * (compact ? 8 : 12);
+    let y = top + band * (index + 0.2 + random() * 0.6);
+    let size = (compact ? 66 : 82) + random() * (compact ? 28 : 46);
     const widthFactor = kind === 'scuba' ? 1.75 : kind === 'bird' ? 1.35 : 1;
     const tilt = -12 + random() * 24;
+
+    if (homePage && kind === 'plant') {
+      x = compact ? 9 : 12;
+      y = compact ? 145 : 180;
+      size = compact ? 76 : 92;
+    }
 
     slot.style.setProperty('--scatter-x', `${Math.max(minX, Math.min(maxX, x)).toFixed(2)}%`);
     slot.style.setProperty('--scatter-y', `${y.toFixed(1)}px`);
