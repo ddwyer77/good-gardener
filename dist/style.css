@@ -40,3 +40,23 @@
   .brand p{font-size:13px}
   .featured-products{margin-top:24px}
 }
+
+.brand-address{margin:1px 0 0;font:normal 14px/17px Arial,Helvetica,sans-serif;color:#000066}
+.announcement h2{font-family:Georgia,'Times New Roman',serif;font-size:28px;line-height:32px}
+.announcement .welcome-time{margin:22px 0 0;font:24px/29px Georgia,'Times New Roman',serif}
+.announcement .shop-ready{margin:34px 0 0;color:#b91806;font:18px/22px Arial,Helvetica,sans-serif}
+.announcement .bottom{margin-top:30px;font:22px/26px Georgia,'Times New Roman',serif}
+.info h2{font-size:18px;line-height:22px}
+.info p{font-size:16px;line-height:20px;margin-top:8px}
+.size-guide{max-width:680px}
+.size-table{width:min(520px,100%);border-collapse:collapse;margin:22px 0 28px;font:17px/22px Arial,Helvetica,sans-serif;background:#fffcec}
+.size-table th,.size-table td{border:1px solid #8f887c;padding:10px 14px;text-align:left}
+.size-table thead th{background:#315f3c;color:#fff}
+.size-table tbody th{color:#315f3c;width:34%}
+
+@media(max-width:520px){
+  .brand-address{font-size:13px;line-height:16px}
+  .announcement h2{font-size:25px;line-height:29px}
+  .announcement .welcome-time{font-size:21px;line-height:25px}
+  .announcement .shop-ready{font-size:17px;line-height:21px}
+}
