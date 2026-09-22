@@ -1,6 +1,6 @@
 # Retro art sources
 
-The user supplied the horizon banner, bird, Yosemite image, penguins, potted plant, chrome/black peace symbols, updated fish-holding honoree portrait, scuba diver, and fish. The horizon and honoree portrait each appear once on the homepage. The diver and fish were converted locally to transparent PNGs and appear once per page beside one plant and one chrome peace sign. The bird, Yosemite, penguin, and black peace references are retained locally but are currently removed from the visible site.
+The user supplied the horizon banner, animated bird, Yosemite image, penguins, potted plant, several peace symbols, updated fish-holding honoree portrait, scuba diver, fish, house icon, and first clothing collection. The horizon and honoree portrait each appear once on the homepage. The full clothing collection appears once on the store page; four locally extracted product cutouts form the homepage Store Highlights grid. The diver and fish were converted locally to transparent PNGs. Each page shows one plant, one rainbow peace sign, one scuba diver, one fish, and one animated bird. The house image is the fixed Home control. Yosemite, penguin, chrome peace, and black peace references are retained locally but are not visible on the site.
 
 ## 3D models
 Generated from the user-approved plant and chrome peace references using fal Tripo P2 image-to-3D, one run per model. Meshy CLI was available but not authenticated; the existing fal connector handled generation. Upload to fal public CDN was explicitly approved in chat. Plant target: 2,500 faces, textured. Peace target: 1,500 faces, PBR textured. Actual provider charges were not returned; price API reported USD 0.01 per credit without a per-job credit count.
@@ -8,7 +8,7 @@ Generated from the user-approved plant and chrome peace references using fal Tri
 - Plant request: `01a0c7a6-926b-7712-8ccd-c329462f8f33`
 - Peace request: `01a0c7a6-f87e-7d73-88a6-755783fa0e73`
 - Local GLBs: `dist/assets/models/plant.glb`, `dist/assets/models/peace.glb`
-- The visible animation layer uses one instance of each model per page.
+- These model files are retained as earlier project artifacts. The visible animation layer now uses the supplied image assets so it can scroll natively with the document.
 
 ## Reference direction
 - https://www.youtube.com/watch?v=choF4hqrbz4 — transcript reviewed; crude late-1990s 3D forms and short whimsical loops.
@@ -19,5 +19,5 @@ Generated from the user-approved plant and chrome peace references using fal Tri
 ## Removed archive GIFs
 All archive GIF badges and their footer credits were removed at the user’s request. The original archives remain visual research only.
 
-## Viewer
-Three.js 0.180.0 from npm, MIT license retained at `dist/vendor/THREE-LICENSE.txt`. Vendored runtime files and GLTF loader are used without CDN runtime dependencies.
+## Motion layer
+All visible floating assets are local image files positioned in the page and animated with CSS. No third-party runtime or network request is needed for the decorations. The earlier vendored Three.js files and license remain in the repository as unused project history.
