@@ -4,4 +4,4 @@
 
 .honoree-photo{object-position:50% 48%}.inner-copy .honoree-portrait{height:auto;max-height:none;object-fit:contain}.award-date{color:#315f3c;font-weight:bold}
 
-.feature .first-award{font:bold 16px/22px Arial,sans-serif;color:#315f3c;margin:25px auto 30px}.feature-photo.honoree-photo{object-position:50% 48%}
+.feature .first-award{font:bold 16px/22px Arial,sans-serif;color:#315f3c;margin:25px auto 30px}.feature-photo.honoree-photo{width:min(292px,100%);height:auto;aspect-ratio:auto;object-position:50% 48%;margin:0 auto}

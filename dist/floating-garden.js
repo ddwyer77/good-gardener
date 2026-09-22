@@ -44,7 +44,9 @@ function placeSlots() {
 
     slot.style.setProperty('--scatter-x', `${Math.max(minX, Math.min(maxX, x)).toFixed(2)}%`);
     slot.style.setProperty('--scatter-y', `${y.toFixed(1)}px`);
+    const width = slot.dataset.model === 'scuba' ? size * 1.8 : size;
     slot.style.setProperty('--scatter-size', `${size.toFixed(1)}px`);
+    slot.style.setProperty('--scatter-width', `${width.toFixed(1)}px`);
     slot.style.setProperty('--scatter-tilt', `${tilt.toFixed(1)}deg`);
 
     const fallback = slot.querySelector('.model-fallback');
@@ -197,11 +199,7 @@ if (renderer) {
       const size = box.getSize(new THREE.Vector3());
       const scale = 1 / Math.max(size.x, size.y, size.z);
 
-      for (const slot of slots.filter(
-        (candidate) =>
-          candidate.dataset.model === kind ||
-          (kind === 'peace' && candidate.dataset.model === 'black'),
-      )) {
+      for (const slot of slots.filter((candidate) => candidate.dataset.model === kind)) {
         const model = gltf.scene.clone(true);
         model.position.copy(center).multiplyScalar(-scale);
         model.scale.setScalar(scale);
@@ -209,12 +207,7 @@ if (renderer) {
           if (!object.isMesh) return;
           object.material = object.material.clone();
           object.material.side = THREE.DoubleSide;
-          if (slot.dataset.model === 'black') {
-            object.material.map = null;
-            object.material.color.set('#292b29');
-            object.material.metalness = 0.12;
-            object.material.roughness = 0.65;
-          } else if (kind === 'peace') {
+          if (kind === 'peace') {
             object.material.metalness = 0.35;
             object.material.roughness = 0.3;
           }

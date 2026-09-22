@@ -1,6 +1,6 @@
 # Retro art sources
 
-The user supplied the horizon banner, bird, Yosemite image, penguins, potted plant, and chrome/black peace symbols. The horizon appears once on the homepage. The bird, Yosemite, and penguin references are retained in the local asset folder but are currently removed from the visible site. Repeating plants and peace symbols are explicitly requested decorative exceptions to the earlier unique-photo rule.
+The user supplied the horizon banner, bird, Yosemite image, penguins, potted plant, chrome/black peace symbols, updated fish-holding honoree portrait, scuba diver, and fish. The horizon and honoree portrait each appear once on the homepage. The diver and fish were converted locally to transparent PNGs and appear once per page beside one plant and one chrome peace sign. The bird, Yosemite, penguin, and black peace references are retained locally but are currently removed from the visible site.
 
 ## 3D models
 Generated from the user-approved plant and chrome peace references using fal Tripo P2 image-to-3D, one run per model. Meshy CLI was available but not authenticated; the existing fal connector handled generation. Upload to fal public CDN was explicitly approved in chat. Plant target: 2,500 faces, textured. Peace target: 1,500 faces, PBR textured. Actual provider charges were not returned; price API reported USD 0.01 per credit without a per-job credit count.
@@ -8,7 +8,7 @@ Generated from the user-approved plant and chrome peace references using fal Tri
 - Plant request: `01a0c7a6-926b-7712-8ccd-c329462f8f33`
 - Peace request: `01a0c7a6-f87e-7d73-88a6-755783fa0e73`
 - Local GLBs: `dist/assets/models/plant.glb`, `dist/assets/models/peace.glb`
-- The black peace variant uses the same mesh with a matte-black material.
+- The visible animation layer uses one instance of each model per page.
 
 ## Reference direction
 - https://www.youtube.com/watch?v=choF4hqrbz4 — transcript reviewed; crude late-1990s 3D forms and short whimsical loops.
