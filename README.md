@@ -11,7 +11,7 @@ Eleven HTML pages include the homepage, story, mission, community, monthly award
 The store supports size selection, adding items, quantities, and removal in a temporary in-memory preview bag. It has no payment collection, order creation, pricing, inventory system, or storage. Before sales launch, supply real products, photos, sizes, prices, fulfillment terms, and a payment provider. Add subsequent confirmed honoree articles to the homepage and honoree index. No nonprofit tax status, donations, contact details, or real-world programs are fabricated.
 
 ## Publishing
-Sites identity and static directory live in `.openai/hosting.json`. Site is private. Publish with the Sites workflow. Keep real credentials outside source.
+Sites identity and static directory live in `.openai/hosting.json`. The site is public at `https://good-gardener.org/`, with `https://good-gardener.possiblylater.chatgpt.site/` retained as the Sites address. Publish with the Sites workflow. Keep real credentials outside source.
 
 ## Verification
 Check local HTML links/assets and JS syntax; inspect desktop/mobile layout and exercise article navigation and store add/remove/size behavior.
@@ -24,4 +24,4 @@ The supplied horizon banner and honoree portrait each appear once on the homepag
 `retro.css` adds the transparent decoration layer and the user-supplied warm background color, #f0e5d2. The welcome line, archive GIF badges, and three small nature images were removed at the user’s request. See `ASSET-SOURCES.md` for source URLs, model request IDs, and license notes. Homepage and honoree content, clothing preview logic, and private access are preserved.
 
 ## Domain
-On September 21, 2026 (Pacific), Porkbun search showed `goodgardener.world` available at $2.57 first year and $33.47 renewal. Cloudflare live search also confirmed availability at $32.20 registration and $32.20 annual renewal. The user prefers Cloudflare or their existing registrar. The user requested pricing and registrar choice; no purchase has been made. Domain is not bought or connected. A custom-domain setup will require ownership and DNS records from Sites. No hosting-price guarantee has been made.
+The user purchased `good-gardener.org` through Cloudflare Registrar. The public Sites project is connected to that apex domain with two proxied A records and the two TXT validation records supplied by Sites. Sites reports the domain, provider route, and SSL certificate active. `good-gardener.com` was not purchased or connected.
