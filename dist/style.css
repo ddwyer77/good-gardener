@@ -151,7 +151,7 @@
 @media(max-width:775px){
   .foundation-panel{width:100%;min-height:0}.foundation-panel h2{font-size:29px}
   .clothing-grid,.gallery-grid{gap:20px 14px}
-  .product-page{padding:16px}.shop-masthead{grid-template-columns:1fr}.shop-landscape{width:100%;height:auto;aspect-ratio:412/189}.shop-brand{justify-content:flex-start}.shop-links{grid-column:auto;justify-content:flex-start}
+  .product-page{display:flex;flex-direction:column;padding:16px}.product-page>.product-back{order:1}.product-page>.product-layout{order:2}.product-page>.related{order:3}.product-page>.product-welcome{order:4}.product-page>.shop-masthead{order:5;margin-top:28px}.product-page>.site-nav{order:6}.product-page>.footer{order:7}.shop-masthead{grid-template-columns:1fr}.shop-landscape{width:100%;height:auto;aspect-ratio:412/189}.shop-brand{justify-content:flex-start}.shop-links{grid-column:auto;justify-content:flex-start}
   .product-layout{grid-template-columns:64px minmax(0,1fr)}.product-thumbs{grid-column:1}.thumb{width:62px;height:62px}.product-hero{grid-column:2}.product-summary{grid-column:1/-1}.product-summary h2{font-size:36px}
   .related{width:100%}.product-welcome{width:100%;margin:26px 0 20px}.related-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
