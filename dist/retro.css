@@ -202,6 +202,21 @@ body.product-detail .page-tools {
     height: 64px;
   }
 
+  body.product-detail .page-tools {
+    display: block;
+    top: 8px;
+    left: calc(100% - 62px);
+  }
+
+  body.product-detail .home-button {
+    width: 50px;
+    height: 44px;
+  }
+
+  body.product-detail .shop-links {
+    padding-top: 48px;
+  }
+
   .home .home-grid {
     margin-top: 22px;
   }
