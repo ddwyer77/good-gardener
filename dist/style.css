@@ -263,3 +263,18 @@
   .product-footer img{width:62px;height:52px}
   .product-footer>a:last-child{font-size:14px}
 }
+
+/* Homepage products intentionally dominate the left-aligned catalog layout. */
+.home .featured-products{width:720px;max-width:calc(100% - 32px);margin:30px 0 14px 28px}
+.home .featured-product-grid{gap:22px 18px}
+.home .featured-product-card img{height:330px;margin-bottom:9px}
+
+@media(max-width:775px){
+  .home .featured-products{width:100%;max-width:none;margin:30px 0 14px}
+  .home .featured-product-card img{height:clamp(180px,42vw,320px)}
+}
+
+@media(max-width:520px){
+  .home .featured-product-grid{gap:22px 10px}
+  .home .featured-product-card img{height:clamp(170px,45vw,225px)}
+}
