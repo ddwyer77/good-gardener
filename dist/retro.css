@@ -4,10 +4,21 @@ body {
 }
 
 .page-tools {
-  position: fixed;
+  position: absolute;
   top: 18px;
-  right: 18px;
+  right: auto;
+  left: min(calc(100% - 112px), 664px);
   z-index: 10;
+}
+
+body.product-detail .page-tools {
+  left: min(calc(100% - 124px), 1116px);
+}
+
+@media (min-width: 776px) {
+  body.product-detail .shop-links {
+    margin-right: 104px;
+  }
 }
 
 .home-button {
@@ -182,7 +193,8 @@ body {
 
   .page-tools {
     top: 12px;
-    right: 12px;
+    right: auto;
+    left: calc(100% - 84px);
   }
 
   .home-button {
