@@ -58,15 +58,6 @@ function setSlotCenter(slot, centerX, centerY) {
   return { x, y };
 }
 
-function rectsOverlap(a, b, padding = 10) {
-  return !(
-    a.right + padding <= b.left ||
-    a.left >= b.right + padding ||
-    a.bottom + padding <= b.top ||
-    a.top >= b.bottom + padding
-  );
-}
-
 function elementRects(selector) {
   if (!scatterSurface) return [];
   const surfaceRect = scatterSurface.getBoundingClientRect();
@@ -95,30 +86,39 @@ function openContentPosition(width, height, random, hardBlockers, softBlockers, 
   const mainRect = main?.getBoundingClientRect();
   const contentLeft = mainRect ? Math.max(0, mainRect.left - surfaceRect.left) : 0;
   const contentRight = mainRect ? Math.min(surfaceRect.width, mainRect.right - surfaceRect.left) : surfaceRect.width;
+  const contentTop = mainRect ? Math.max(0, mainRect.top - surfaceRect.top) : 0;
+  const contentBottom = mainRect ? Math.min(scatterSurface.offsetHeight, mainRect.bottom - surfaceRect.top) : scatterSurface.offsetHeight;
   const minX = contentLeft + width / 2 + 4;
   const maxX = contentRight - width / 2 - 4;
-  const minY = height / 2 + 18;
-  const maxY = Math.min(scatterSurface.offsetHeight, main?.offsetHeight || scatterSurface.offsetHeight) - height / 2 - 18;
+  const minY = contentTop + height / 2 + 12;
+  const maxY = contentBottom - height / 2 - 12;
   if (minX >= maxX || minY >= maxY) return null;
 
-  for (let attempt = 0; attempt < 600; attempt += 1) {
+  const usableHeight = maxY - minY;
+  const bandHeight = usableHeight / slots.length;
+  const bandCenter = minY + (index + 0.5) * bandHeight;
+  let best = null;
+
+  for (let attempt = 0; attempt < 300; attempt += 1) {
     const x = minX + random() * (maxX - minX);
-    const bandCenter = minY + ((index + 0.5) / slots.length) * (maxY - minY);
-    const y = clamp(bandCenter + (random() - 0.5) * Math.min(300, (maxY - minY) / 2), minY, maxY);
+    const y = clamp(bandCenter + (random() - 0.5) * Math.min(180, bandHeight * 0.7), minY, maxY);
     const candidate = {
       left: x - width / 2,
       right: x + width / 2,
       top: y - height / 2,
       bottom: y + height / 2,
     };
-    if (hardBlockers.some(blocker => rectsOverlap(candidate, blocker, 6))) continue;
-    if (placed.some(other => rectsOverlap(candidate, other, 16))) continue;
     const candidateArea = width * height;
-    const softOverlap = softBlockers.reduce((total, blocker) => total + overlapArea(candidate, blocker), 0);
-    if (softOverlap / candidateArea > 0.18) continue;
-    return { x, y, rect: candidate };
+    const controlOverlap = hardBlockers.reduce((total, blocker) => total + overlapArea(candidate, blocker), 0) / candidateArea;
+    const contentOverlap = softBlockers.reduce((total, blocker) => total + overlapArea(candidate, blocker), 0) / candidateArea;
+    const floaterOverlap = placed.reduce((total, other) => total + overlapArea(candidate, other), 0) / candidateArea;
+    const distanceFromBand = Math.abs(y - bandCenter) / Math.max(1, bandHeight);
+    const score = controlOverlap * 40 + contentOverlap * 2 + floaterOverlap * 80 + distanceFromBand;
+
+    if (!best || score < best.score) best = { x, y, rect: candidate, score };
+    if (score < 0.04) break;
   }
-  return null;
+  return best;
 }
 
 function lanePosition(width, height, random, index, mainHeight) {
@@ -144,11 +144,13 @@ function placeSlots() {
   const main = scatterSurface.querySelector('main');
   const mainHeight = main?.offsetHeight || 620;
   const hardBlockers = elementRects([
-    'main h1', 'main h2', 'main h3', 'main p', 'main li', 'main address',
-    'main a', 'main button', 'main select', 'main table', 'main details',
-    'main summary', 'main .site-nav', '.page-tools',
+    'main button', 'main select', 'main input', 'main textarea',
+    'main summary', 'main .size-options', 'main .add-to-cart', '.page-tools',
   ].join(','));
-  const softBlockers = elementRects('main img:not(.model-fallback)');
+  const softBlockers = elementRects([
+    'main h1', 'main h2', 'main h3', 'main p', 'main li', 'main address',
+    'main a', 'main table', 'main details', 'main img:not(.model-fallback)',
+  ].join(','));
   const placed = [];
 
   slots.forEach((slot, index) => {
