@@ -77,7 +77,17 @@ body {
   width: var(--scatter-width, var(--scatter-size, 112px));
   height: var(--scatter-size, 112px);
   transform: translate(-50%, -50%) rotate(var(--scatter-tilt, 0deg));
-  pointer-events: none;
+  pointer-events: auto;
+  touch-action: none;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.float-slot.is-dragging {
+  cursor: grabbing;
+  z-index: 2;
 }
 
 .model-fallback {
@@ -87,6 +97,15 @@ body {
   mix-blend-mode: normal;
   animation: paperfloat 7s ease-in-out infinite alternate;
   will-change: transform;
+  pointer-events: none;
+}
+
+[data-model="plant"] .model-fallback {
+  animation-name: plantspin;
+  animation-duration: 12s;
+  animation-timing-function: linear;
+  animation-direction: normal;
+  animation-iteration-count: infinite;
 }
 
 .image-floater .model-fallback {
@@ -102,7 +121,10 @@ body {
 
 .peace-floater .model-fallback {
   animation-name: peacefloat;
-  animation-duration: 10s;
+  animation-duration: 14s;
+  animation-timing-function: linear;
+  animation-direction: normal;
+  animation-iteration-count: infinite;
 }
 
 .bird-floater .model-fallback {
@@ -114,13 +136,15 @@ body {
   width: 776px;
 }
 
-.motion-paused .model-fallback {
-  animation: none;
-}
-
 @keyframes paperfloat {
   from { transform: translateY(-5px) rotate(-5deg); }
   to { transform: translateY(5px) rotate(5deg); }
+}
+
+@keyframes plantspin {
+  0% { transform: translateY(-4px) rotate(0deg); }
+  50% { transform: translateY(4px) rotate(180deg); }
+  100% { transform: translateY(-4px) rotate(360deg); }
 }
 
 @keyframes swimfloat {
@@ -129,19 +153,14 @@ body {
 }
 
 @keyframes peacefloat {
-  from { transform: translateY(-7px) rotate(-8deg); }
-  to { transform: translateY(7px) rotate(8deg); }
+  0% { transform: translateY(-7px) rotate(0deg); }
+  50% { transform: translateY(7px) rotate(180deg); }
+  100% { transform: translateY(-7px) rotate(360deg); }
 }
 
 @keyframes birdglide {
   from { transform: translate(-14px, -6px) rotate(-3deg); }
   to { transform: translate(14px, 7px) rotate(3deg); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .model-fallback {
-    animation: none;
-  }
 }
 
 @media (max-width: 1099px) {
