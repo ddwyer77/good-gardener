@@ -287,3 +287,14 @@
   .mobile-product-logo{display:block;order:0;width:108px;height:54px;margin:0 0 2px;position:relative;z-index:6}
   .mobile-product-logo img{display:block;width:100%;height:100%;object-fit:fill}
 }
+
+/* Future homepage products continue horizontally in two-row columns. */
+.home .featured-products{overflow:visible}
+.home .featured-product-grid{grid-template-columns:none;grid-template-rows:repeat(2,auto);grid-auto-flow:column;grid-auto-columns:351px;width:max-content}
+.site-world.has-garden-lane{padding-bottom:230px}
+
+@media(max-width:775px){
+  .home .featured-products{overflow-x:auto;overflow-y:hidden;padding-bottom:8px}
+  .home .featured-product-grid{grid-auto-columns:calc((100vw - 42px)/2)}
+  .site-world.has-garden-lane{padding-bottom:220px}
+}
