@@ -67,14 +67,9 @@ function rectsOverlap(a, b, padding = 10) {
   );
 }
 
-function contentBlockers() {
+function elementRects(selector) {
   if (!scatterSurface) return [];
   const surfaceRect = scatterSurface.getBoundingClientRect();
-  const selector = [
-    'main h1', 'main h2', 'main h3', 'main p', 'main address',
-    'main a', 'main button', 'main img', 'main select', 'main table',
-    'main details', 'main summary', 'main .site-nav', '.page-tools',
-  ].join(',');
   return [...document.querySelectorAll(selector)]
     .filter(element => !element.closest('.garden-overlay'))
     .map(element => element.getBoundingClientRect())
@@ -87,30 +82,40 @@ function contentBlockers() {
     }));
 }
 
-function openGutterPosition(width, height, random, blockers, placed, index) {
+function overlapArea(a, b) {
+  const width = Math.max(0, Math.min(a.right, b.right) - Math.max(a.left, b.left));
+  const height = Math.max(0, Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top));
+  return width * height;
+}
+
+function openContentPosition(width, height, random, hardBlockers, softBlockers, placed, index) {
   if (!scatterSurface) return null;
   const surfaceRect = scatterSurface.getBoundingClientRect();
   const main = scatterSurface.querySelector('main');
   const mainRect = main?.getBoundingClientRect();
-  const gutterLeft = mainRect ? mainRect.right - surfaceRect.left + 12 : surfaceRect.width * 0.72;
-  const minX = gutterLeft + width / 2;
-  const maxX = surfaceRect.width - width / 2 - 10;
-  const minY = height / 2 + 90;
-  const maxY = scatterSurface.offsetHeight - height / 2 - 40;
+  const contentLeft = mainRect ? Math.max(0, mainRect.left - surfaceRect.left) : 0;
+  const contentRight = mainRect ? Math.min(surfaceRect.width, mainRect.right - surfaceRect.left) : surfaceRect.width;
+  const minX = contentLeft + width / 2 + 4;
+  const maxX = contentRight - width / 2 - 4;
+  const minY = height / 2 + 18;
+  const maxY = Math.min(scatterSurface.offsetHeight, main?.offsetHeight || scatterSurface.offsetHeight) - height / 2 - 18;
   if (minX >= maxX || minY >= maxY) return null;
 
-  for (let attempt = 0; attempt < 240; attempt += 1) {
+  for (let attempt = 0; attempt < 600; attempt += 1) {
     const x = minX + random() * (maxX - minX);
     const bandCenter = minY + ((index + 0.5) / slots.length) * (maxY - minY);
-    const y = clamp(bandCenter + (random() - 0.5) * 180, minY, maxY);
+    const y = clamp(bandCenter + (random() - 0.5) * Math.min(300, (maxY - minY) / 2), minY, maxY);
     const candidate = {
       left: x - width / 2,
       right: x + width / 2,
       top: y - height / 2,
       bottom: y + height / 2,
     };
-    if (blockers.some(blocker => rectsOverlap(candidate, blocker))) continue;
+    if (hardBlockers.some(blocker => rectsOverlap(candidate, blocker, 6))) continue;
     if (placed.some(other => rectsOverlap(candidate, other, 16))) continue;
+    const candidateArea = width * height;
+    const softOverlap = softBlockers.reduce((total, blocker) => total + overlapArea(candidate, blocker), 0);
+    if (softOverlap / candidateArea > 0.18) continue;
     return { x, y, rect: candidate };
   }
   return null;
@@ -134,13 +139,16 @@ function placeSlots() {
 
   const random = seededRandom(hashString(location.pathname || 'good-gardener'));
   const compact = window.innerWidth < 650;
-  const productPage = document.body.classList.contains('product-detail');
-  const useSafeLane = compact || productPage || scatterSurface.clientWidth < 900;
-  scatterSurface.classList.toggle('has-garden-lane', useSafeLane);
+  scatterSurface.classList.remove('has-garden-lane');
 
   const main = scatterSurface.querySelector('main');
   const mainHeight = main?.offsetHeight || 620;
-  const blockers = useSafeLane ? [] : contentBlockers();
+  const hardBlockers = elementRects([
+    'main h1', 'main h2', 'main h3', 'main p', 'main li', 'main address',
+    'main a', 'main button', 'main select', 'main table', 'main details',
+    'main summary', 'main .site-nav', '.page-tools',
+  ].join(','));
+  const softBlockers = elementRects('main img:not(.model-fallback)');
   const placed = [];
 
   slots.forEach((slot, index) => {
@@ -159,13 +167,17 @@ function placeSlots() {
       slot.dataset.userMoved = 'true';
       setSlotCenter(slot, saved.x * scatterSurface.clientWidth, saved.y * scatterSurface.offsetHeight);
     } else {
-      const position = useSafeLane
-        ? lanePosition(width, size, random, index, mainHeight)
-        : openGutterPosition(width, size, random, blockers, placed, index);
+      const position = openContentPosition(width, size, random, hardBlockers, softBlockers, placed, index);
+      if (!position) scatterSurface.classList.add('has-garden-lane');
       const fallback = position || lanePosition(width, size, random, index, mainHeight);
       if (fallback) {
         setSlotCenter(slot, fallback.x, fallback.y);
-        if (fallback.rect) placed.push(fallback.rect);
+        placed.push(fallback.rect || {
+          left: fallback.x - width / 2,
+          right: fallback.x + width / 2,
+          top: fallback.y - size / 2,
+          bottom: fallback.y + size / 2,
+        });
       }
     }
 
