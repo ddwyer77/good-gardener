@@ -24,4 +24,4 @@ The supplied horizon banner, flattened logo, named four-product image, and updat
 `retro.css` adds the transparent decoration layer and the user-supplied warm background color, #f0e5d2. The welcome line, archive GIF badges, and three small nature images were removed at the user’s request. See `ASSET-SOURCES.md` for source URLs, model request IDs, and license notes. Homepage and honoree content, clothing preview logic, and private access are preserved.
 
 ## Domain
-The user purchased `good-gardener.org` through Cloudflare Registrar. The public Sites project is connected to that apex domain with two proxied A records and the two TXT validation records supplied by Sites. Sites reports the domain, provider route, and SSL certificate active. `good-gardener.com` was not purchased or connected.
+The user purchased `good-gardener.org` through Cloudflare Registrar. The public Sites project is connected to that apex domain with two proxied A records and the Sites validation TXT record. Sites reports the domain, provider route, and SSL certificate active. `good-gardener.com` was not purchased or connected.
