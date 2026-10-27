@@ -2,6 +2,7 @@
 
 Last audited: October 23, 2026  
 Production site: <https://good-gardener.org/>  
+Canonical GitHub repository: <https://github.com/ddwyer77/good-gardener>
 Sites project title: **Good Gardener World**  
 Audited functional Sites baseline: **version 25**  
 Audited functional code commit: `5a961807c82d46fdfa164e68bcd2eb43c8fb5283`
@@ -10,10 +11,11 @@ Audited functional code commit: `5a961807c82d46fdfa164e68bcd2eb43c8fb5283`
 
 This file is the durable handoff for continuing the Good Gardener website in a new Cowork desktop chat. It contains project identity, design intent, architecture, routes, content rules, validation, publishing steps, and the access requirements for a new computer.
 
-The Markdown file is documentation, not the complete website. A working handoff requires at least one of these:
+The Markdown file is documentation, not the complete website. The preferred handoff is access to the private GitHub repository. A working handoff requires at least one of these:
 
-1. The complete `good-gardener` project folder, including `.git`, `.openai`, `dist`, `README.md`, and `ASSET-SOURCES.md`; or
-2. Editor/owner access to the existing Sites project so the new chat can retrieve its source repository.
+1. Collaborator access to `ddwyer77/good-gardener`, followed by a normal clone;
+2. The complete `good-gardener` project folder, including `.git`, `.openai`, `dist`, `README.md`, and `ASSET-SOURCES.md`; or
+3. Editor/owner access to the existing Sites project so the new chat can retrieve its internal source repository.
 
 The `dist/assets` directory is about 46 MB and contains the actual product photography, GIFs, logos, and other media. Do not try to recreate the site from this document when the source can be copied or retrieved.
 
@@ -42,10 +44,11 @@ If the client signs into Cowork with the same account/workspace and has owner or
 
 If the client uses a different ChatGPT account:
 
-1. Add the client as a Site editor when both accounts are in a compatible workspace, then confirm the new account can call `get_site` for the project.
-2. If cross-workspace editing is unavailable, transfer the full project folder and create a new Site owned by the client only as a deliberate migration.
-3. A migration also requires moving `good-gardener.org` from the old Sites project to the new one and updating Cloudflare DNS. Test the new generated Sites URL before changing DNS to avoid unnecessary downtime.
-4. The client will also need appropriate access to the Cloudflare account that owns the domain if they are expected to manage DNS, renew the domain, or migrate hosting.
+1. Add the client as a collaborator on the private GitHub repository so their Cowork chat can clone and update the canonical source.
+2. Add the client as a Site editor when both accounts are in a compatible workspace, then confirm the new account can call `get_site` for the project.
+3. If cross-workspace Sites editing is unavailable, the client can still work through GitHub while the current owner publishes, or create a new Site owned by the client as a deliberate migration.
+4. A migration also requires moving `good-gardener.org` from the old Sites project to the new one and updating Cloudflare DNS. Test the new generated Sites URL before changing DNS to avoid unnecessary downtime.
+5. The client will also need appropriate access to the Cloudflare account that owns the domain if they are expected to manage DNS, renew the domain, or migrate hosting.
 
 Do not assume that knowing the project ID bypasses access control. Do not copy short-lived repository tokens, login cookies, Cloudflare credentials, or Sites bypass tokens into this file or source control.
 
@@ -56,6 +59,7 @@ These values identify the existing hosted Site and are safe to keep in source:
 | Item | Value |
 | --- | --- |
 | Sites project ID | `appgprj_6ab20461a6c481918b13a21f8b57ee46` |
+| Canonical GitHub source | `https://github.com/ddwyer77/good-gardener` (private) |
 | Sites title | `Good Gardener World` |
 | Sites slug | `good-gardener` |
 | Production URL | `https://good-gardener.org/` |
@@ -388,11 +392,20 @@ For an existing-project update, the workflow is conceptually:
 
 For this buildless Site, the packaging command list is normally empty (`commands: []`) after validation because `dist` is already the deployable output.
 
-The local Git checkout currently has no permanent credential-bearing remote configured. That is intentional. The Sites workflow mints short-lived repository access for each synchronization/publish operation.
+The local Git checkout uses the private GitHub repository as `origin`. Its remote URL contains no embedded credentials. The separate Sites workflow still mints short-lived repository access when synchronizing and publishing to Sites.
 
 ## Retrieving source on a new computer
 
-If the client has Sites editor/owner access but does not receive the folder:
+The preferred setup on a new computer is:
+
+```sh
+git clone https://github.com/ddwyer77/good-gardener.git
+cd good-gardener
+```
+
+The client must first be invited to the private repository and authenticate GitHub on that computer. Open the cloned folder as the Cowork project, then use the opening prompt near the top of this document.
+
+If the client has Sites editor/owner access but cannot use GitHub:
 
 1. Create an empty local project directory.
 2. Start a Cowork chat in that directory and provide this handoff file.
@@ -401,13 +414,14 @@ If the client has Sites editor/owner access but does not receive the folder:
 5. Verify that `.openai/hosting.json`, `dist/index.html`, `README.md`, and the full `dist/assets` tree are present.
 6. Verify the retrieved HEAD against the live Site/version before editing.
 
-If the client lacks Sites access, retrieve the source from the previous owner as a full folder/archive. Do not create a new project with only the HTML and omit the media.
+If the client lacks both GitHub and Sites access, retrieve the source from the previous owner as a full folder/archive. Do not create a new project with only the HTML and omit the media.
 
 ## Credentials and services
 
 Routine editing requires:
 
 - Cowork desktop with filesystem access to the project.
+- GitHub access to the private `ddwyer77/good-gardener` repository.
 - Sites plugin connected to an account with owner/editor rights.
 - Git available locally for history and commits.
 
@@ -436,7 +450,8 @@ Do not expand these milestones automatically during routine visual edits.
 
 Before declaring the client fully independent:
 
-- [ ] Send the full project folder/archive or grant Sites editor access.
+- [ ] Invite the client to the private `ddwyer77/good-gardener` GitHub repository.
+- [ ] Grant Sites editor access or agree that the current owner will continue publishing.
 - [ ] Confirm the client can open `CLIENT-HANDOFF.md` in the new Cowork chat.
 - [ ] Confirm the new chat can call `get_site` for the existing project.
 - [ ] Confirm the client can make a harmless test edit, validate it, and publish a new version.
@@ -448,7 +463,7 @@ Before declaring the client fully independent:
 
 When information conflicts, use this order:
 
-1. Current code and assets in `dist`.
+1. Current `main` branch of `ddwyer77/good-gardener`, especially code and assets in `dist`.
 2. `.openai/hosting.json` and live Sites `get_site` / custom-domain results.
 3. This handoff document.
 4. `README.md` and `ASSET-SOURCES.md`.

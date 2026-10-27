@@ -11,7 +11,7 @@ Twenty-one HTML pages include the homepage, mission, clothing, gallery, honorees
 Each product page supports size selection and adding the item to a temporary in-memory preview bag. The linked size guide clearly labels its body-chest ranges as a general preview and states that final garment measurements will be added before launch. The store has no payment collection, order creation, confirmed pricing, inventory system, or storage. Before sales launch, supply real product photos, final measurements, prices, fulfillment terms, and a payment provider. Add subsequent confirmed honoree articles to the homepage and honoree index. No nonprofit tax status, donations, contact details beyond the supplied address, or real-world programs are fabricated.
 
 ## Publishing
-Sites identity and static directory live in `.openai/hosting.json`. The site is public at `https://good-gardener.org/`, with `https://good-gardener.possiblylater.chatgpt.site/` retained as the Sites address. Publish with the Sites workflow. Keep real credentials outside source.
+The private canonical source repository is `https://github.com/ddwyer77/good-gardener`. Sites identity and static directory live in `.openai/hosting.json`. The site is public at `https://good-gardener.org/`, with `https://good-gardener.possiblylater.chatgpt.site/` retained as the Sites address. Publish with the Sites workflow. Keep real credentials outside source.
 
 ## Verification
 Check local HTML links/assets and JS syntax; inspect desktop/mobile layout and exercise article navigation and store add/remove/size behavior.
